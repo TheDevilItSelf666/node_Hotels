@@ -3,9 +3,12 @@ const app = express();
 const db = require('./db');
 const bodyParser = require('body-parser')
 app.use(bodyParser.json());
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000; 
 
 
-app.get('/hello' , function(req ,res ){
+app.get('/' , function(req ,res ){
     res.send("hello and welcome to my hotel");
 })
 
@@ -17,7 +20,7 @@ const menuRoutes = require('./routes/menuRoutes');
 app.use('/menu' , menuRoutes); 
 app.use('/person' , personRoutes);
 // comment added
-app.listen(3000 , () => {
+app.listen(PORT , () => {
     console.log("Now the server is up ")
 })
 
