@@ -7,7 +7,9 @@ const person = require('./../Models/person');
 router.post('/' ,async (req , res) =>{
    try{
     const data = req.body;
-    const response = person.insertMany(data);
+    const newPerson = new person(data);
+    const response = await newPerson.save();
+   // const response = await person.save(data);
 
     console.log("Data saved" , response);
     res.status(200).json(response);}
