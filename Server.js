@@ -12,11 +12,11 @@ app.get('/hello' , function(req ,res ){
 
 const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
-
+// comment for testing git 
 
 app.use('/menu' , menuRoutes); 
 app.use('/person' , personRoutes);
-
+// comment added
 app.listen(3000 , () => {
     console.log("Now the server is up ")
 })
