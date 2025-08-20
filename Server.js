@@ -18,7 +18,7 @@ app.use(logRequest);
 
 
 app.use(passport.initialize());
-const localAuthStat = passport.authenticate('local' ,{session:false})
+const localAuthStat = passport.authenticate('local',{session:false});
 app.get('/',localAuthStat , function(req ,res ){
     res.send("hello and welcome to my hotel");
 })
@@ -27,9 +27,9 @@ app.get('/',localAuthStat , function(req ,res ){
 const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 // comment for testing git 
-
-app.use('/menu' ,localAuthStat, menuRoutes); 
-app.use('/person' ,localAuthStat, personRoutes);
+app.use(localAuthStat);
+app.use('/menu' , menuRoutes); 
+app.use('/person' , personRoutes);
 // comment added
 app.listen(PORT , () => {
     console.log("Now the server is up ")
