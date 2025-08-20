@@ -4,11 +4,22 @@ const db = require('./db');
 const bodyParser = require('body-parser')
 app.use(bodyParser.json());
 require('dotenv').config();
+const passport = require('./auth');
+
+
 
 const PORT = process.env.PORT || 3000; 
 
+const logRequest = ( req  , res , next) => {
+    console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
+    next();
+}
+app.use(logRequest);
 
-app.get('/' , function(req ,res ){
+
+app.use(passport.initialize());
+const localAuthStat = passport.authenticate('local' ,{session:false})
+app.get('/',localAuthStat , function(req ,res ){
     res.send("hello and welcome to my hotel");
 })
 
@@ -17,8 +28,8 @@ const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 // comment for testing git 
 
-app.use('/menu' , menuRoutes); 
-app.use('/person' , personRoutes);
+app.use('/menu' ,localAuthStat, menuRoutes); 
+app.use('/person' ,localAuthStat, personRoutes);
 // comment added
 app.listen(PORT , () => {
     console.log("Now the server is up ")
