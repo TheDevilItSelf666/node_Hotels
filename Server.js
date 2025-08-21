@@ -27,7 +27,7 @@ app.get('/',localAuthStat , function(req ,res ){
 const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 // comment for testing git 
-app.use(localAuthStat);
+//app.use(localAuthStat);
 app.use('/menu' , menuRoutes); 
 app.use('/person' , personRoutes);
 // comment added

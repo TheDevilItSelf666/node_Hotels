@@ -2,17 +2,25 @@ const express = require('express');
 const router = express.Router();
 
 const person = require('./../Models/person'); 
+const {jwtAuthMiddleWare , geneToken} = require('../jwt');
 
 
-router.post('/' ,async (req , res) =>{
+router.post('/signup' ,async (req , res) =>{
    try{
     const data = req.body;
     const newPerson = new person(data);
     const response = await newPerson.save();
     //const response = await person.insertMany(data);
+    const payload ={
+        id : response.id ,
+        username : response.username
+    }
 
+    const token = geneToken(payload);
+
+    console.log(JSON.stringify(token));
     console.log("Data saved" , response);
-    res.status(200).json(response);}
+    res.status(200).json({response:response , token : token});}
 catch(err){
     console.log("Error while saving data " ,err);
     res.status(500).send("Internal Server Error");}
